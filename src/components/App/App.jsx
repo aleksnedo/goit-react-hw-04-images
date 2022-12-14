@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import { fetchImages } from 'components/api/api';
 import { Searchbar } from 'components/Searchbar/Searchbar';
+import { Gallery } from 'components/ImageGallery/ImageGallery';
 
 export class App extends Component {
   state = {
@@ -22,6 +23,7 @@ export class App extends Component {
       <>
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ToastContainer autoClose={3000} position="top-left" theme="dark" />
+        <Gallery items={this.state.images} />
       </>
     );
   }

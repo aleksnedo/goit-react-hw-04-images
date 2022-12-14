@@ -9,5 +9,5 @@ export const fetchImages = async (query, page) => {
   const pesponse = await axios.get(`
   ?key=${API_KEY}&q=${query}&${searchParams}&per_page=${PER_PAGE}&page=${page}`);
 
-  return pesponse.data;
+  return pesponse.data.hits;
 };
