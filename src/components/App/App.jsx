@@ -1,29 +1,61 @@
 import { Component } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { fetchImages } from 'components/api/api';
+import { fetchImages } from 'components/api/api';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { Gallery } from 'components/ImageGallery/ImageGallery';
+import { Loader } from 'components/Loader/Loader';
 
 export class App extends Component {
   state = {
-    query: '',
     page: 1,
+    query: '',
+    error: null,
     images: [],
     isLoading: false,
-    error: null,
   };
 
+  async componentDidUpdate(_, prevState) {
+    if (
+      prevState.query !== this.state.query ||
+      prevState.page !== this.state.page
+    ) {
+      try {
+        this.setState({ isLoading: true, images: [] });
+
+        const { query, page } = this.state;
+        const queryImage = await fetchImages(query, page);
+        this.setState(prevState => ({
+          images: [...prevState.images, ...queryImage],
+        }));
+      } catch (error) {
+        toast.error('Fetch Error');
+      } finally {
+        this.setState({ isLoading: false });
+      }
+    }
+  }
+
   handleFormSubmit = query => {
-    this.setState({ query });
+    this.setState({
+      query,
+      page: 1,
+      error: null,
+      images: [],
+      isLoading: false,
+    });
   };
 
   render() {
+    const { isLoading, error, query, images } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ToastContainer autoClose={3000} position="top-left" theme="dark" />
-        <Gallery items={this.state.images} />
+        {/* {this.state.query.length === 0 && toast.warn('Pictures not found')} */}
+        {isLoading && <Loader />}
+        {error && <p>{error}</p>}
+        {query && <Gallery items={images} />}
       </>
     );
   }
