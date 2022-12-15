@@ -52,7 +52,6 @@ export class App extends Component {
       <>
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ToastContainer autoClose={3000} position="top-left" theme="dark" />
-        {/* {this.state.query.length === 0 && toast.warn('Pictures not found')} */}
         {isLoading && <Loader />}
         {error && <p>{error}</p>}
         {query && <Gallery items={images} />}

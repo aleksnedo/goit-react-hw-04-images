@@ -1,4 +1,12 @@
-import { Component } from 'react';
+// import { Component } from 'react';
 import { Overlay, ModalStyle } from './Modal.styled';
 
-export class Modal extends Component {}
+export const Modal = ({ tags, largeImageURL, backdropClick }) => {
+  return (
+    <Overlay onClick={backdropClick}>
+      <ModalStyle>
+        <img src={largeImageURL} alt={tags} />
+      </ModalStyle>
+    </Overlay>
+  );
+};
