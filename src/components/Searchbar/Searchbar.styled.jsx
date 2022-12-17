@@ -34,17 +34,27 @@ export const SearchButton = styled.button`
   width: 48px;
   height: 48px;
   border: 0;
-  background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
-  background-size: 40%;
+  /* background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg'); */
+  /* background-size: 40%;
   background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.6;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  background-position: center; */
+  opacity: 0.9;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   outline: none;
 
+  svg {
+    width: 24px;
+    height: 24px;
+    color: #5f5f5f;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    &:hover {
+      color: #3f51b5;
+    }
+  }
+
   &:hover {
-    opacity: 1;
+    color: #3f51b5;
   }
 `;
 

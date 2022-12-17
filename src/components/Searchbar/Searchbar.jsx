@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { toast } from 'react-toastify';
+import { ImSearch } from 'react-icons/im';
 import {
   Header,
   SearchForm,
@@ -31,6 +32,7 @@ export class Searchbar extends Component {
       <Header>
         <SearchForm onSubmit={this.handleSubmit}>
           <SearchButton type="submit">
+            <ImSearch />
             <ButtonLabel>Search</ButtonLabel>
           </SearchButton>
 
