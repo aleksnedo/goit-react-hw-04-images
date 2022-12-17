@@ -62,7 +62,7 @@ export class App extends Component {
         {isLoading && <Loader />}
         {error && <p>{error}</p>}
         {query && <Gallery items={images} />}
-        {images.length >= 12 && <LoadMoreBtn onClick={this.loadMore} />}
+        {images.length > 0 && <LoadMoreBtn onClick={this.loadMore} />}
       </>
     );
   }
