@@ -47,7 +47,7 @@ export class ImageGalleryItem extends Component {
           <Modal
             largeImageURL={largeImageURL}
             tags={tags}
-            onClickBackdrop={this.onClickBackdrop}
+            onClick={this.onClickBackdrop}
           />
         )}
       </GalleryItem>

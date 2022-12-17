@@ -1,5 +1,5 @@
-// import { Component } from 'react';
 import { Overlay, ModalStyle } from './Modal.styled';
+import PropTypes from 'prop-types';
 
 export const Modal = ({ tags, largeImageURL, backdropClick }) => {
   return (
@@ -9,4 +9,10 @@ export const Modal = ({ tags, largeImageURL, backdropClick }) => {
       </ModalStyle>
     </Overlay>
   );
+};
+
+Modal.propTypes = {
+  tags: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  backdropClick: PropTypes.func,
 };

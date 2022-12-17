@@ -25,3 +25,9 @@ export const Button = styled.button`
     background-color: #303f9f;
   }
 `;
+
+export const Wrapper = styled.div`
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;

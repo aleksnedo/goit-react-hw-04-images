@@ -5,6 +5,7 @@ import { fetchImages } from 'components/api/api';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { Gallery } from 'components/ImageGallery/ImageGallery';
 import { Loader } from 'components/Loader/Loader';
+import { LoadMoreBtn } from 'components/Button/Button';
 
 export class App extends Component {
   state = {
@@ -46,6 +47,12 @@ export class App extends Component {
     });
   };
 
+  loadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
+
   render() {
     const { isLoading, error, query, images } = this.state;
     return (
@@ -55,6 +62,7 @@ export class App extends Component {
         {isLoading && <Loader />}
         {error && <p>{error}</p>}
         {query && <Gallery items={images} />}
+        {images.length >= 12 && <LoadMoreBtn onClick={this.loadMore} />}
       </>
     );
   }
