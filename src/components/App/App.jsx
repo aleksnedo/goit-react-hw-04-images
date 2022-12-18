@@ -15,7 +15,6 @@ export class App extends Component {
     query: '',
     images: [],
     largeImageURL: '',
-    totalImages: 0,
     error: null,
     isLoading: false,
     showModal: false,
@@ -66,7 +65,12 @@ export class App extends Component {
     } else if (query === this.state.query) {
       return;
     }
-    this.setState({ query: query, page: 1, images: [], isLoading: true });
+    this.setState({
+      query: query,
+      page: 1,
+      images: [],
+      isLoading: true,
+    });
   };
 
   loadMore = () => {
