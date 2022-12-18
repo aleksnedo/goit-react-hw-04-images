@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 import { ImSearch } from 'react-icons/im';
 import {
   Header,
@@ -13,25 +13,32 @@ export class Searchbar extends Component {
   state = {
     query: '',
   };
-
-  onQueryFormChange = evt => {
-    const { value } = evt.currentTarget;
-    this.setState({ query: value.toLowerCase() });
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    if (this.state.query.trim() === '') {
-      return toast.warn('Please enter a keyword');
-    }
     this.props.onSubmit(this.state.query);
-    this.setState({ query: '' });
+    // e.preventDefault();
+    // if (this.state.query.trim() === '') {
+    //   return toast.warn('Please enter a keyword');
+    // }
+    // this.props.onSubmit(this.state.query);
+    // this.setState({ query: '' });
+  };
+
+  handleFormChange = e => {
+    const { value } = e.currentTarget;
+    this.setState({ query: value.toLowerCase() });
   };
 
   render() {
+    const { handleSubmit, handleFormChange } = this;
+
     return (
       <Header>
-        <SearchForm onSubmit={this.handleSubmit}>
+        <SearchForm onSubmit={handleSubmit}>
           <SearchButton type="submit">
             <ImSearch />
             <ButtonLabel>Search</ButtonLabel>
@@ -42,7 +49,7 @@ export class Searchbar extends Component {
             autoComplete="off"
             value={this.state.query}
             placeholder="Search images and photos"
-            onChange={this.onQueryFormChange}
+            onChange={handleFormChange}
           />
         </SearchForm>
       </Header>

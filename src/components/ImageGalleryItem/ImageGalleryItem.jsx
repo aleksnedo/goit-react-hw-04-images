@@ -1,56 +1,72 @@
-import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { GalleryItem, GalleryImage } from './ImageGalleryItem.styled';
-import { Modal } from 'components/Modal/Modal';
 
-export class ImageGalleryItem extends Component {
-  state = { isShowModal: false };
+export const ImageGalleryItem = ({ webformatURL, isOpenModal, index }) => {
+  return (
+    <GalleryItem>
+      <GalleryImage
+        src={webformatURL}
+        alt=""
+        onClick={() => isOpenModal(index)}
+      />
+    </GalleryItem>
+  );
+};
 
-  componentDidMount() {
-    window.addEventListener('keydown', this.onClickEscape);
-  }
+ImageGalleryItem.propTypes = {
+  webformatURL: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  isOpenModal: PropTypes.func,
+};
+// export class ImageGalleryItem extends Component {
+//   state = { isShowModal: false };
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onClickEscape);
-  }
+//   componentDidMount() {
+//     window.addEventListener('keydown', this.onClickEscape);
+//   }
 
-  onClickEscape = e => {
-    if (this.state.isShowModal) {
-      if (e.code === 'Escape') {
-        this.toggleModal();
-      }
-    }
-  };
+//   componentWillUnmount() {
+//     window.removeEventListener('keydown', this.onClickEscape);
+//   }
 
-  onClickBackdrop = e => {
-    if (this.state.isShowModal) {
-      if (e.currentTarget === e.target) {
-        this.toggleModal();
-      }
-    }
-  };
+//   onClickEscape = e => {
+//     if (this.state.isShowModal) {
+//       if (e.code === 'Escape') {
+//         this.toggleModal();
+//       }
+//     }
+//   };
 
-  toggleModal = () => {
-    this.setState(({ isShowModal }) => ({ isShowModal: !isShowModal }));
-  };
+//   onClickBackdrop = e => {
+//     if (this.state.isShowModal) {
+//       if (e.currentTarget === e.target) {
+//         this.toggleModal();
+//       }
+//     }
+//   };
 
-  render() {
-    const { tags, largeImageURL, webformatURL } = this.props;
-    const { isShowModal } = this.state;
-    return (
-      <GalleryItem>
-        <GalleryImage
-          src={webformatURL}
-          alt={tags}
-          onClick={this.toggleModal}
-        />
-        {isShowModal && (
-          <Modal
-            largeImageURL={largeImageURL}
-            tags={tags}
-            onClick={this.onClickBackdrop}
-          />
-        )}
-      </GalleryItem>
-    );
-  }
-}
+//   toggleModal = () => {
+//     this.setState(({ isShowModal }) => ({ isShowModal: !isShowModal }));
+//   };
+
+//   render() {
+//     const { tags, largeImageURL, webformatURL } = this.props;
+//     const { isShowModal } = this.state;
+//     return (
+// <GalleryItem>
+//   <GalleryImage
+//     src={webformatURL}
+//     alt={tags}
+//     onClick={this.toggleModal}
+//   />
+//   {isShowModal && (
+//     <Modal
+//       largeImageURL={largeImageURL}
+//       tags={tags}
+//       onClick={this.onClickBackdrop}
+//     />
+//   )}
+// </GalleryItem>
+//     );
+//   }
+// }
