@@ -54,15 +54,16 @@ export class App extends Component {
   };
 
   render() {
-    const { isLoading, error, query, images } = this.state;
+    const { isLoading, error, images } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleFormSubmit} />
+        {images.length !== 0 && <Gallery items={images} />}
         <ToastContainer autoClose={3000} position="top-left" theme="dark" />
-        {isLoading && <Loader />}
+
         {error && <p>{error}</p>}
-        {query && <Gallery items={images} />}
-        {images.length > 0 && <LoadMoreBtn onClick={this.loadMore} />}
+        {isLoading && <Loader />}
+        {images.length >= 12 && <LoadMoreBtn onClick={this.loadMore} />}
       </>
     );
   }

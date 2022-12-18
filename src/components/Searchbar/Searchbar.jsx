@@ -14,8 +14,9 @@ export class Searchbar extends Component {
     query: '',
   };
 
-  onQueryFormChange = e => {
-    this.setState({ query: e.currentTarget.value.toLowerCase() });
+  onQueryFormChange = evt => {
+    const { value } = evt.currentTarget;
+    this.setState({ query: value.toLowerCase() });
   };
 
   handleSubmit = e => {
@@ -38,6 +39,7 @@ export class Searchbar extends Component {
 
           <SearchInput
             type="text"
+            autoComplete="off"
             value={this.state.query}
             placeholder="Search images and photos"
             onChange={this.onQueryFormChange}
