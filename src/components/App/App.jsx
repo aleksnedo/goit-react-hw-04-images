@@ -17,27 +17,45 @@ export class App extends Component {
     largeImageURL: '',
     error: null,
     isLoading: false,
+    isShowLoadMore: false,
     showModal: false,
   };
 
-  async componentDidUpdate(_, prevState) {
+  componentDidUpdate(_, prevState) {
     const { page, query } = this.state;
 
     if (prevState.page !== page || prevState.query !== query) {
-      try {
-        this.setState({ isLoading: true });
+      this.setState({ isLoading: true });
 
-        const { query, page } = this.state;
-        const queryImage = await fetchImages(query, page);
+      const { query, page } = this.state;
+      const queryImage = fetchImages(query, page);
 
-        this.setState(prevState => ({
-          images: [...prevState.images, ...queryImage],
-        }));
-      } catch (error) {
-        toast.error('Fetch Error');
-      } finally {
-        this.setState({ isLoading: false });
-      }
+      queryImage
+        .then(({ data }) => {
+          if (data.hits.length < 12) {
+            this.setState({ isShowLoadMore: true });
+          }
+          if (data.total === 0) {
+            this.setState({ isLoading: false });
+            return toast.error('Nothing was found for your request');
+          }
+          const parsedImages = data.hits.map(
+            ({ id, webformatURL, largeImageURL }) => ({
+              id,
+              webformatURL,
+              largeImageURL,
+            })
+          );
+          this.setState(prevState => ({
+            images: [...prevState.images, ...parsedImages],
+          }));
+        })
+        .catch(error => {
+          this.setState({ error });
+        })
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });
     }
 
     // if (
@@ -70,6 +88,7 @@ export class App extends Component {
       page: 1,
       images: [],
       isLoading: true,
+      isShowLoadMore: false,
     });
   };
 
@@ -92,7 +111,8 @@ export class App extends Component {
   };
 
   render() {
-    const { isLoading, images, largeImageURL, showModal } = this.state;
+    const { isLoading, images, largeImageURL, showModal, isShowLoadMore } =
+      this.state;
     const { toggleModal, openModal, handleFormSubmit, loadMore } = this;
 
     return (
@@ -107,7 +127,9 @@ export class App extends Component {
         )}
         {isLoading && <Loader />}
 
-        {images.length > 0 && !isLoading && <LoadMoreBtn onClick={loadMore} />}
+        {images.length > 0 && !isLoading && !isShowLoadMore && (
+          <LoadMoreBtn onClick={loadMore} />
+        )}
       </>
     );
   }

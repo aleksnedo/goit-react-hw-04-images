@@ -10,5 +10,5 @@ export const fetchImages = async (query, page) => {
     `?key=${API_KEY}&q=${query}&${searchParams}&per_page=${PER_PAGE}&page=${page}`
   );
 
-  return response.data.hits;
+  return response;
 };
