@@ -1,52 +1,58 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+// import PropTypes from 'prop-types';
 import { Overlay, ModalStyle } from './Modal.styled';
 
-export class Modal extends Component {
-  static propTypes = {
-    toggleModal: PropTypes.func.isRequired,
-    largeImageURL: PropTypes.string.isRequired,
+export default function Modal({ toggleModal, largeImageURL }) {
+  useEffect(() => {
+    const onClickEscape = e => e.code === 'Escape' && toggleModal();
+    window.addEventListener('keydown', onClickEscape);
+    return () => {
+      window.removeEventListener('keydown', onClickEscape);
+    };
+  });
+
+  const onClickBackdrop = e => {
+    e.currentTarget === e.target && toggleModal();
   };
 
-  componentDidMount() {
-    window.addEventListener('keydown', this.onClickEscape);
-  }
-
-  componentWillUnmount() {
-    window.addEventListener('keydown', this.onClickEscape);
-  }
-
-  onClickEscape = e => {
-    e.code === 'Escape' && this.props.toggleModal();
-  };
-
-  onClickBackdrop = e => {
-    e.currentTarget === e.target && this.props.toggleModal();
-  };
-
-  render() {
-    return (
-      <Overlay onClick={this.onClickBackdrop}>
-        <ModalStyle>
-          <img src={this.props.largeImageURL} alt="" />
-        </ModalStyle>
-      </Overlay>
-    );
-  }
+  return (
+    <Overlay onClick={onClickBackdrop}>
+      <ModalStyle>
+        <img src={largeImageURL} alt="" />
+      </ModalStyle>
+    </Overlay>
+  );
 }
 
-// export const Modal = ({ tags, largeImageURL, backdropClick }) => {
-//   return (
-// <Overlay onClick={backdropClick}>
-//   <ModalStyle>
-//     <img src={largeImageURL} alt={tags} />
-//   </ModalStyle>
-// </Overlay>
-//   );
-// };
+// export class oldModal extends Component {
+//   static propTypes = {
+//     toggleModal: PropTypes.func.isRequired,
+//     largeImageURL: PropTypes.string.isRequired,
+//   };
 
-// Modal.propTypes = {
-//   tags: PropTypes.string.isRequired,
-//   largeImageURL: PropTypes.string.isRequired,
-//   backdropClick: PropTypes.func,
-// };
+//   componentDidMount() {
+//     window.addEventListener('keydown', this.onClickEscape);
+//   }
+
+//   componentWillUnmount() {
+//     window.addEventListener('keydown', this.onClickEscape);
+//   }
+
+//   onClickEscape = e => {
+//     e.code === 'Escape' && this.props.toggleModal();
+//   };
+
+//   onClickBackdrop = e => {
+//     e.currentTarget === e.target && this.props.toggleModal();
+//   };
+
+//   render() {
+//     return (
+//       <Overlay onClick={this.onClickBackdrop}>
+//         <ModalStyle>
+//           <img src={this.props.largeImageURL} alt="" />
+//         </ModalStyle>
+//       </Overlay>
+//     );
+//   }
+// }

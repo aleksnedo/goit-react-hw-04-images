@@ -9,7 +9,7 @@ import {
   SearchInput,
 } from './Searchbar.styled';
 
-export default function Searchbar() {
+export default function Searchbar({ onSubmit }) {
   const [query, setQuery] = useState('');
 
   const handleSubmit = e => {

@@ -3,11 +3,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { fetchImages } from 'components/api/api';
-import { Searchbar } from 'components/Searchbar/Searchbar';
+import Searchbar from 'components/Searchbar/Searchbar';
 import { Gallery } from 'components/ImageGallery/ImageGallery';
 import { Loader } from 'components/Loader/Loader';
 import { LoadMoreBtn } from 'components/Button/Button';
-import { Modal } from 'components/Modal/Modal';
+import Modal from 'components/Modal/Modal';
 
 export class App extends Component {
   state = {
