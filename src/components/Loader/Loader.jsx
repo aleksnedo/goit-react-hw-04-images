@@ -1,18 +1,18 @@
-import { Grid } from 'react-loader-spinner';
+import { ProgressBar } from 'react-loader-spinner';
 import { LoaderDiv } from './Loader.styled';
 
 export const Loader = () => {
   return (
     <LoaderDiv>
-      <Grid
-        height="80"
-        width="80"
-        color="#3f51b5"
-        ariaLabel="grid-loading"
-        radius="12.5"
+      <ProgressBar
+        height="100"
+        width="100"
+        ariaLabel="progress-bar-loading"
         wrapperStyle={{}}
-        wrapperClass=""
-        visible={true}
+        wrapperClass="progress-bar-wrapper"
+        borderColor="#3f51b5"
+        barColor="#3f51b5"
+        s
       />
     </LoaderDiv>
   );

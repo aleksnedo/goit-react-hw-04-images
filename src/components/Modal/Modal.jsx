@@ -23,36 +23,3 @@ export default function Modal({ toggleModal, largeImageURL }) {
     </Overlay>
   );
 }
-
-// export class oldModal extends Component {
-//   static propTypes = {
-//     toggleModal: PropTypes.func.isRequired,
-//     largeImageURL: PropTypes.string.isRequired,
-//   };
-
-//   componentDidMount() {
-//     window.addEventListener('keydown', this.onClickEscape);
-//   }
-
-//   componentWillUnmount() {
-//     window.addEventListener('keydown', this.onClickEscape);
-//   }
-
-//   onClickEscape = e => {
-//     e.code === 'Escape' && this.props.toggleModal();
-//   };
-
-//   onClickBackdrop = e => {
-//     e.currentTarget === e.target && this.props.toggleModal();
-//   };
-
-//   render() {
-//     return (
-//       <Overlay onClick={this.onClickBackdrop}>
-//         <ModalStyle>
-//           <img src={this.props.largeImageURL} alt="" />
-//         </ModalStyle>
-//       </Overlay>
-//     );
-//   }
-// }
