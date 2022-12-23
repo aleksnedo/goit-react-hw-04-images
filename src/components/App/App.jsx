@@ -57,24 +57,6 @@ export class App extends Component {
           this.setState({ isLoading: false });
         });
     }
-
-    // if (
-    //   prevState.query !== this.state.query ||
-    //   prevState.page !== this.state.page
-    // ) {
-    //   try {
-    //     this.setState({ isLoading: true, images: [] });
-    //     const { query, page } = this.state;
-    //     const queryImage = await fetchImages(query, page);
-    //     this.setState(prevState => ({
-    //       images: [...prevState.images, ...queryImage],
-    //     }));
-    //   } catch (error) {
-    //     toast.error('Fetch Error');
-    //   } finally {
-    //     this.setState({ isLoading: false });
-    //   }
-    // }
   }
 
   handleFormSubmit = query => {
